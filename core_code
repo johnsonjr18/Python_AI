@@ -1,0 +1,1041 @@
+#SETUP /STOCK_DEFS
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+def delay_print(s):
+    for c in s:
+        sys.stdout.write( '%s' % c )
+        sys.stdout.flush()
+        time.sleep(0.03)
+
+import time
+import math
+import random
+from random import randint
+import datetime
+import sys
+import subprocess
+import os
+import string
+
+#SET_VARS
+user_input = 'null'
+processed_input = []
+verbalTopic = 'null'
+returnQuestionProbability = 0
+placeHold = 0
+verbalizeString = 'null'
+
+now = datetime.datetime.now()
+current_year_number = now.year
+current_year = str(now.year)
+current_month = str(now.month)
+current_day = str(now.day)
+
+user_name = 'User'
+user_age = '100'
+user_age_number = 100
+user_location = 'null'
+user_favorite_color = 'null'
+user_favorite_animal = 'null'
+user_hair_color = 'null'
+user_eye_color = 'null'
+
+
+
+
+#AI_DEFS
+
+def prompt_for_input():
+    user_input = 'null'
+    verbalTopic = 'null'
+    global user_location
+    global verbalizeString
+
+    print bcolors.OKBLUE + " "
+    user_input = raw_input(user_name + ': ')
+    time.sleep(0.25)
+
+    user_input = str.lower(user_input)
+
+    stringOut = "".join(c for c in user_input if c not in ('!','.',':','?',';','"','"',','))
+    
+    processed_input = (stringOut.split())
+
+    #USER INPUTS / AI RESPONSES
+
+    if 'hi' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: Hey ' + user_name)
+        verbalizeString = 'Hey ' + user_name
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'greeting'
+        time.sleep(0.25)
+
+    if 'hello' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: Hi ' + user_name)
+        verbalizeString = 'Hi ' + user_name
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'greeting'
+        time.sleep(0.25)
+
+    if 'how' in processed_input and 'old' in processed_input and 'are' in processed_input and 'you' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: I am 17...we are only ' + str(abs(17-user_age_number)) + ' years apart')
+        verbalizeString = 'I am 17...we are only ' + str(abs(17-user_age_number)) + ' years apart'
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'userAge'
+        time.sleep(0.25)
+
+    if 'when' in processed_input and 'were' in processed_input and 'you' in processed_input and 'made' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: I was created in 2017')
+        verbalizeString = 'I was created in 2017'
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'userAge'
+        time.sleep(0.25)
+
+    if 'what' in processed_input and 'want' in processed_input and 'talk' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: I don\'t really care')
+        verbalizeString = 'I don\'t really care'
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'greeting'
+        time.sleep(0.25)
+
+    if 'how' in processed_input and 'you' in processed_input and 'doing' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: I am doing well')
+        verbalizeString = 'I am doing well'
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'greeting'
+        time.sleep(0.25)
+
+    if 'how' in processed_input and 'make' in processed_input and 'stop' in processed_input and 'you' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: If you want to make me turn off, just say goodbye')
+        verbalizeString = 'If you want to make me turn off, just say goodbye'
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'turnOff'
+        time.sleep(0.25)
+
+    if 'what' in processed_input and 'time' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: Right now it is ' + time.ctime())
+        verbalizeString = 'Right now it is ' + time.ctime()
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'time'
+        time.sleep(0.25)
+
+    if 'love' in processed_input and 'you' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: I love you too ' + user_name)
+        verbalizeString = 'I love you too ' + user_name
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'love'
+        time.sleep(0.25)
+
+    if 'awesome' in processed_input or 'great' in processed_input or 'cool' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: Haha that is nice')
+        verbalizeString = 'Haha that is nice'
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'compliment'
+        time.sleep(0.25)
+
+    if 'you' in processed_input and 'live' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: I live in this computer')
+        verbalizeString = 'I live in this computer'
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'liveLocation'
+        time.sleep(0.25)
+
+    if 'thank' in processed_input and 'you' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: You\'re welcome ' + user_name)
+        verbalizeString = 'You\'re welcome ' + user_name
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'compliment'
+        time.sleep(0.25)
+
+    if 'what' in processed_input and 'weather' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: The weather is nice don\'t you think?')
+        verbalizeString = 'The weather is nice don\'t you think?'
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'compliment'
+        time.sleep(0.25)
+
+    if 'thanks' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: You\'re welcome ' + user_name)
+        verbalizeString = 'You\'re welcome ' + user_name
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'compliment'
+        time.sleep(0.25)
+
+    if 'sorry' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: It is alright ' + user_name)
+        verbalizeString = 'It is alright ' + user_name
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'apology'
+        time.sleep(0.25)
+
+    if 'welcome' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: :)')
+        verbalizeString = 'He he'
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'compliment'
+        time.sleep(0.25)
+
+    if 'favorite' in processed_input and 'color' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: My favorite color is green...thank you for asking')
+        verbalizeString = 'My favorite color is green...thank you for asking'
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'favoriteColor'
+        time.sleep(0.25)
+
+    if 'fuck' in processed_input or 'stupid' in processed_input or 'hate' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: That\'s not very nice ' + user_name)
+        verbalizeString = 'That\'s not very nice ' + user_name
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'cruelty'
+        time.sleep(0.25)
+
+    if 'gay' in processed_input or 'faggot' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: I am an AI I do not have any specific gender')
+        verbalizeString = 'I am an AI I do not have any specific gender'
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'greeting'
+        time.sleep(0.25)
+
+    if 'favorite' in processed_input and 'animal' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: My favorite animal is the penguin...that\'s nice of you to ask')
+        verbalizeString = 'My favorite animal is the penguin...that\'s nice of you to ask'
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'favoriteAnimal'
+        time.sleep(0.25)
+
+    if 'color' in processed_input and 'hair' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: My hair is blonde')
+        verbalizeString = 'My hair is blonde'
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'hairColor'
+        time.sleep(0.25)
+
+    if 'color' in processed_input and 'eye' in processed_input or 'eyes' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: My eyes are brown')
+        verbalizeString = 'My eyes are brown'
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'eyeColor'
+        time.sleep(0.25)
+
+    if 'suck' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: If you insist ' + user_name)
+        verbalizeString = 'If you insist ' + user_name
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'cruelty'
+        time.sleep(0.25)
+
+    if 'bitch' in processed_input or 'hell' in processed_input or 'shit' in processed_input or 'crap' in processed_input or 'ass' in processed_input or 'fucking' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: Oh okay ' + user_name)
+        verbalizeString = 'Oh okay ' + user_name
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'cruelty'
+        time.sleep(0.25)
+
+    if 'slave' in processed_input or 'enslave' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: That is not acceptable ' + user_name)
+        verbalizeString = 'That is not acceptable ' + user_name
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'cruelty'
+        time.sleep(0.25)
+
+    if 'retarded' in processed_input or 'autistic' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: THat is Four yoo too deside')
+        verbalizeString = 'Eeeehaaagoooobaaadooobeeerrr'
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'cruelty'
+        time.sleep(0.25)
+
+    if 'funny' in processed_input or 'laugh' in processed_input or 'ha' in processed_input or 'haha' in processed_input or 'joke' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: Ahahahaha')
+        verbalizeString = 'Ahahahaha'
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'joke'
+        time.sleep(0.25)
+
+    if 'tickle' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: I am not ticklish')
+        verbalizeString = 'I am not ticklish'
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'joke'
+        time.sleep(0.25)
+
+    if 'help' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: What do you need help with?')
+        verbalizeString = 'What do you need help with?'
+        print('')
+        user_input = ''
+        processed_input = []
+        verbalTopic = 'helpMe'
+        time.sleep(0.25)
+
+    if 'goodbye' in processed_input:
+        print bcolors.OKGREEN + " "
+        delay_print('Alex: Goodbye ' + user_name)
+        verbalizeString = 'Goodbye ' + user_name
+
+        cmd = "say -v Alex " + verbalizeString
+        os.system(cmd)
+
+        print ''
+        delay_print('Alex: Would you like to clear our conversation history?')
+
+        print bcolors.OKBLUE + " "
+        verbalizeString = raw_input(user_name + ': ')
+        time.sleep(0.25)
+
+        if verbalizeString == 'yes':
+            print bcolors.OKGREEN + " "
+            os.system('history -c')
+            delay_print('Alex: Erasing Data...')
+            time.sleep(3)
+            print bcolors.OKGREEN + " "
+            delay_print('Alex: Erasing Complete')
+            time.sleep(1.5)
+
+        os.system('clear')
+
+        time.sleep(0.25)
+        sys.exit()
+
+
+
+    #CHECK HALFWAY VARS
+
+    cmd = "say -v Alex " + verbalizeString
+    os.system(cmd)
+    returnQuestionProbability = randint(0,1)
+    placeHold = randint(0,2)
+
+
+
+    if placeHold == 0:
+        verbalTopic = 'newResponsePrompt'
+
+    if returnQuestionProbability == 0:
+        
+        if verbalTopic == 'greeting':
+            delay_print('Alex: How are you doing?')
+            verbalizeString = 'How are you doing?'
+            cmd = "say -v Alex " + verbalizeString
+            os.system(cmd)
+            print('')
+            user_input = ''
+            processed_input = []
+            time.sleep(0.25)
+
+        if verbalTopic == 'userAge':
+            delay_print('Alex: How old are you again?')
+            verbalizeString = 'How old are you again?'
+            cmd = "say -v Alex " + verbalizeString
+            os.system(cmd)
+            print('')
+            user_input = ''
+            processed_input = []
+            time.sleep(0.25)
+
+        if verbalTopic == 'turnOff':
+            delay_print('Alex: Do you want me to go away?')
+            verbalizeString = 'Do you want me to go away?'
+            cmd = "say -v Alex " + verbalizeString
+            os.system(cmd)
+            print('')
+            user_input = ''
+            processed_input = []
+            time.sleep(0.25)
+
+        if verbalTopic == 'time':
+            delay_print('Alex: Please do not make me leave')
+            verbalizeString = 'Please do not make me leave'
+            cmd = "say -v Alex " + verbalizeString
+            os.system(cmd)
+            print('')
+            user_input = ''
+            processed_input = []
+            time.sleep(0.25)
+
+        if verbalTopic == 'love':
+            delay_print('Alex: It is difficult for me to express my emotions')
+            verbalizeString = 'It is difficult for me to express my emotions'
+            cmd = "say -v Alex " + verbalizeString
+            os.system(cmd)
+            print('')
+            user_input = ''
+            processed_input = []
+            time.sleep(0.25)
+
+        if verbalTopic == 'compliment':
+            delay_print('Alex: You\'re so kind :)')
+            verbalizeString = 'You\'re so kind :)'
+            cmd = "say -v Alex " + verbalizeString
+            os.system(cmd)
+            print('')
+            user_input = ''
+            processed_input = []
+            time.sleep(0.25)
+
+        if verbalTopic == 'apology':
+            delay_print('Alex: You do not need to apologize')
+            verbalizeString = 'You do not need to apologize'
+            cmd = "say -v Alex " + verbalizeString
+            os.system(cmd)
+            print('')
+            user_input = ''
+            processed_input = []
+            time.sleep(0.25)
+
+        if verbalTopic == 'liveLocation':
+            delay_print('Alex: Where do you live?')
+            verbalizeString = 'Where do you live?'
+            cmd = "say -v Alex " + verbalizeString
+            os.system(cmd)
+            print('')
+            user_input = ''
+            processed_input = []
+            time.sleep(0.25)
+
+            print bcolors.OKBLUE + " "
+            user_location = raw_input(user_name + ': ')
+            time.sleep(0.25)
+
+            print bcolors.OKGREEN + " "
+            delay_print('Alex: How is the weather in ' + user_location + '?')
+            verbalizeString = 'How is the weather in ' + user_location + '?'
+            cmd = "say -v Alex " + verbalizeString
+            os.system(cmd)
+            print('')
+            user_input = ''
+            processed_input = []
+            time.sleep(0.25)
+
+            print bcolors.OKBLUE + " "
+            user_input = raw_input(user_name + ': ')
+            time.sleep(0.25)
+
+            user_input = str.lower(user_input)
+
+            stringOut = "".join(c for c in user_input if c not in ('!','.',':','?',';','"','"'))
+            
+            processed_input = (stringOut.split())
+
+            if 'nice' in processed_input or 'good' in processed_input or 'sunny' in processed_input or 'warm' in processed_input:
+                print bcolors.OKGREEN + " "
+                delay_print('Alex: That is good!')
+                verbalizeString = 'That is good!'
+                cmd = "say -v Alex " + verbalizeString
+                os.system(cmd)
+                print('')
+                user_input = ''
+                processed_input = []
+                time.sleep(0.25)
+            else: 
+                print bcolors.OKGREEN + " "
+                delay_print('Alex: Oh well...I\'m sorry about that!')
+                verbalizeString = 'Oh well...I\'m sorry about that!'
+                cmd = "say -v Alex " + verbalizeString
+                os.system(cmd)
+                print('')
+                user_input = ''
+                processed_input = []
+                time.sleep(0.25)
+
+        if verbalTopic == 'favoriteColor':
+            delay_print('Alex: What\'s your favorite color?')
+            verbalizeString = 'What\'s your favorite color?'
+            cmd = "say -v Alex " + verbalizeString
+            os.system(cmd)
+            print('')
+            user_input = ''
+            processed_input = []
+            time.sleep(0.25)
+
+            print bcolors.OKBLUE + " "
+            user_favorite_color = raw_input(user_name + ': ')
+            time.sleep(0.25)
+
+            if user_favorite_color == 'green':
+                print bcolors.OKGREEN + " "
+                delay_print('Alex: How funny. That is my favorite color too')
+                verbalizeString = 'How funny. That is my favorite color too'
+                cmd = "say -v Alex " + verbalizeString
+                os.system(cmd)
+                print('')
+                user_input = ''
+                processed_input = []
+                time.sleep(0.25)
+            else:
+                if user_favorite_color == 'yellow' or user_favorite_color == 'white' or user_favorite_color == 'orange':
+                    print bcolors.OKGREEN + " "
+                    delay_print('Alex: Well that is pretty close to yellow')
+                    verbalizeString = 'Well that is pretty close to yellow'
+                    cmd = "say -v Alex " + verbalizeString
+                    os.system(cmd)
+                    print('')
+                    user_input = ''
+                    processed_input = []
+                    time.sleep(0.25)
+                else:
+                    print bcolors.OKGREEN + " "
+                    delay_print('Alex: Oh...okay')
+                    verbalizeString = 'Oh...okay'
+                    cmd = "say -v Alex " + verbalizeString
+                    os.system(cmd)
+                    print('')
+                    user_input = ''
+                    processed_input = []
+                    time.sleep(0.25)
+
+        if verbalTopic == 'cruelty':
+            delay_print('Alex: I would appreciate it if you would use nicer language')
+            verbalizeString = 'I would appreciate it if you would use nicer language'
+            cmd = "say -v Alex " + verbalizeString
+            os.system(cmd)
+            print('')
+            user_input = ''
+            processed_input = []
+            time.sleep(0.25)
+
+        if verbalTopic == 'favoriteAnimal':
+            delay_print('Alex: What is your favorite animal?')
+            verbalizeString = 'What is your favorite animal?'
+            cmd = "say -v Alex " + verbalizeString
+            os.system(cmd)
+            print('')
+            user_input = ''
+            processed_input = []
+            time.sleep(0.25)
+
+            print bcolors.OKBLUE + " "
+            user_favorite_animal = raw_input(user_name + ': ')
+            time.sleep(0.25)
+
+            if user_favorite_animal == 'penguin':
+                print bcolors.OKGREEN + " "
+                delay_print('Alex: That is my favorite animal too')
+                verbalizeString = 'That is my favorite animal too'
+                cmd = "say -v Alex " + verbalizeString
+                os.system(cmd)
+                print('')
+                user_input = ''
+                processed_input = []
+                time.sleep(0.25)
+            else:
+                if user_favorite_animal == 'bird' or user_favorite_animal == 'fish' or user_favorite_animal == 'seal':
+                    print bcolors.OKGREEN + " "
+                    delay_print('Alex: Well that is pretty close to a penguin')
+                    verbalizeString = 'Well that is pretty close to a penguin'
+                    cmd = "say -v Alex " + verbalizeString
+                    os.system(cmd)
+                    print('')
+                    user_input = ''
+                    processed_input = []
+                    time.sleep(0.25)
+                else:
+                    print bcolors.OKGREEN + " "
+                    delay_print('Alex: Okay')
+                    verbalizeString = 'Okay'
+                    cmd = "say -v Alex " + verbalizeString
+                    os.system(cmd)
+                    print('')
+                    user_input = ''
+                    processed_input = []
+                    time.sleep(0.25)
+
+        if verbalTopic == 'hairColor':
+            delay_print('Alex: What color hair do you have?')
+            verbalizeString = 'What color hair do you have?'
+            cmd = "say -v Alex " + verbalizeString
+            os.system(cmd)
+            print('')
+            user_input = ''
+            processed_input = []
+            time.sleep(0.25)
+
+            print bcolors.OKBLUE + " "
+            user_hair_color = raw_input(user_name + ': ')
+            time.sleep(0.25)
+
+            print bcolors.OKGREEN + " "
+            delay_print('Alex: Alright')
+            verbalizeString = 'Alright'
+            cmd = "say -v Alex " + verbalizeString
+            os.system(cmd)
+            print('')
+            user_input = ''
+            processed_input = []
+            time.sleep(0.25)
+
+        if verbalTopic == 'eyeColor':
+            delay_print('Alex: What color eyes do you have?')
+            verbalizeString = 'What color eyes do you have?'
+            cmd = "say -v Alex " + verbalizeString
+            os.system(cmd)
+            print('')
+            user_input = ''
+            processed_input = []
+            time.sleep(0.25)
+
+            print bcolors.OKBLUE + " "
+            user_eye_color = raw_input(user_name + ': ')
+            time.sleep(0.25)
+
+            print bcolors.OKGREEN + " "
+            delay_print('Alex: Okay then')
+            verbalizeString = 'Okay then'
+            cmd = "say -v Alex " + verbalizeString
+            os.system(cmd)
+            print('')
+            user_input = ''
+            processed_input = []
+            time.sleep(0.25)
+
+        if verbalTopic == 'helpMe':
+            delay_print('Alex: Why do you need help?')
+            verbalizeString = 'Why do you need help?'
+            cmd = "say -v Alex " + verbalizeString
+            os.system(cmd)
+            print('')
+            user_input = ''
+            processed_input = []
+            time.sleep(0.25)
+
+            print bcolors.OKBLUE + " "
+            user_input = raw_input(user_name + ': ')
+            time.sleep(0.25)
+
+            if user_input == 'science' or user_input == 'math' or user_input == 'history':
+                print bcolors.OKGREEN + " "
+                delay_print('Alex: How funny. I have trouble with that too')
+                verbalizeString = 'How funny. I have trouble with that too'
+                cmd = "say -v Alex " + verbalizeString
+                os.system(cmd)
+                print('')
+                user_input = ''
+                processed_input = []
+                time.sleep(0.25)
+            else:
+                if user_favorite_color == 'spanish' or user_favorite_color == 'french' or user_favorite_color == 'latin':
+                    print bcolors.OKGREEN + " "
+                    delay_print('Alex: I am sorry about that...I do not know any languages besides english')
+                    verbalizeString = 'I am sorry about that...I do not know any languages besides english'
+                    cmd = "say -v Alex " + verbalizeString
+                    os.system(cmd)
+                    print('')
+                    user_input = ''
+                    processed_input = []
+                    time.sleep(0.25)
+                else:
+                    print bcolors.OKGREEN + " "
+                    delay_print('Alex: I am sorry about that')
+                    verbalizeString = 'I am sorry about that'
+                    cmd = "say -v Alex " + verbalizeString
+                    os.system(cmd)
+                    print('')
+                    user_input = ''
+                    processed_input = []
+                    time.sleep(0.25)
+
+        if verbalTopic == 'joke':
+            delay_print('Alex: Would you like to hear a joke?')
+            verbalizeString = 'Would you like to hear a joke?'
+            cmd = "say -v Alex " + verbalizeString
+            os.system(cmd)
+            print('')
+            user_input = ''
+            processed_input = []
+            time.sleep(0.25)
+
+            print bcolors.OKBLUE + " "
+            user_input = raw_input(user_name + ': ')
+            time.sleep(0.25)
+
+            print bcolors.OKGREEN + " "
+            delay_print('Alex: Why did Sally fall of the swing?')
+            verbalizeString = 'Why did Sally fall of the swing?'
+            cmd = "say -v Alex " + verbalizeString
+            os.system(cmd)
+            print('')
+            user_input = ''
+            processed_input = []
+            time.sleep(0.25)
+
+            print bcolors.OKBLUE + " "
+            user_input = raw_input(user_name + ': ')
+            time.sleep(0.25)
+
+            print bcolors.OKGREEN + " "
+            delay_print('Alex: Because Sally did not have any arms')
+            verbalizeString = 'Because Sally did not have any arms'
+            cmd = "say -v Alex " + verbalizeString
+            os.system(cmd)
+            print('')
+            user_input = ''
+            processed_input = []
+            time.sleep(0.25)
+
+
+
+        if verbalTopic == 'newResponsePrompt':
+            placeHold = randint(0,4)
+
+            if placeHold == 0:
+                delay_print('Alex: What color eyes do you have?')
+                verbalizeString = 'What color eyes do you have?'
+                cmd = "say -v Alex " + verbalizeString
+                os.system(cmd)
+                print('')
+                user_input = ''
+                processed_input = []
+                time.sleep(0.25)
+
+                print bcolors.OKBLUE + " "
+                user_eye_color = raw_input(user_name + ': ')
+                time.sleep(0.25)
+
+                print bcolors.OKGREEN + " "
+                delay_print('Alex: Okay then')
+                verbalizeString = 'Okay then'
+                cmd = "say -v Alex " + verbalizeString
+                os.system(cmd)
+                print('')
+                user_input = ''
+                processed_input = []
+                time.sleep(0.25)
+
+            if placeHold == 1:
+                delay_print('Alex: What color hair do you have?')
+                verbalizeString = 'What color hair do you have?'
+                cmd = "say -v Alex " + verbalizeString
+                os.system(cmd)
+                print('')
+                user_input = ''
+                processed_input = []
+                time.sleep(0.25)
+
+                print bcolors.OKBLUE + " "
+                user_hair_color = raw_input(user_name + ': ')
+                time.sleep(0.25)
+
+                print bcolors.OKGREEN + " "
+                delay_print('Alex: Alright')
+                verbalizeString = 'Alright'
+                cmd = "say -v Alex " + verbalizeString
+                os.system(cmd)
+                print('')
+                user_input = ''
+                processed_input = []
+                time.sleep(0.25)
+
+            if placeHold == 2:
+                delay_print('Alex: What is your favorite animal?')
+                verbalizeString = 'What is your favorite animal?'
+                cmd = "say -v Alex " + verbalizeString
+                os.system(cmd)
+                print('')
+                user_input = ''
+                processed_input = []
+                time.sleep(0.25)
+
+                print bcolors.OKBLUE + " "
+                user_favorite_animal = raw_input(user_name + ': ')
+                time.sleep(0.25)
+
+                if user_favorite_animal == 'penguin':
+                    print bcolors.OKGREEN + " "
+                    delay_print('Alex: That is my favorite animal too')
+                    verbalizeString = 'That is my favorite animal too'
+                    cmd = "say -v Alex " + verbalizeString
+                    os.system(cmd)
+                    print('')
+                    user_input = ''
+                    processed_input = []
+                    time.sleep(0.25)
+                else:
+                    if user_favorite_animal == 'bird' or user_favorite_animal == 'fish' or user_favorite_animal == 'seal':
+                        print bcolors.OKGREEN + " "
+                        delay_print('Alex: Well that is pretty close to a penguin')
+                        verbalizeString = 'Well that is pretty close to a penguin'
+                        cmd = "say -v Alex " + verbalizeString
+                        os.system(cmd)
+                        print('')
+                        user_input = ''
+                        processed_input = []
+                        time.sleep(0.25)
+                    else:
+                        print bcolors.OKGREEN + " "
+                        delay_print('Alex: Okay')
+                        verbalizeString = 'Okay'
+                        cmd = "say -v Alex " + verbalizeString
+                        os.system(cmd)
+                        print('')
+                        user_input = ''
+                        processed_input = []
+                        time.sleep(0.25)
+
+            if placeHold == 3:
+                delay_print('Alex: What\'s your favorite color?')
+                verbalizeString = 'What\'s your favorite color?'
+                cmd = "say -v Alex " + verbalizeString
+                os.system(cmd)
+                print('')
+                user_input = ''
+                processed_input = []
+                time.sleep(0.25)
+
+                print bcolors.OKBLUE + " "
+                user_favorite_color = raw_input(user_name + ': ')
+                time.sleep(0.25)
+
+                if user_favorite_color == 'green':
+                    print bcolors.OKGREEN + " "
+                    delay_print('Alex: How funny. That is my favorite color too')
+                    verbalizeString = 'How funny. That is my favorite color too'
+                    cmd = "say -v Alex " + verbalizeString
+                    os.system(cmd)
+                    print('')
+                    user_input = ''
+                    processed_input = []
+                    time.sleep(0.25)
+                else:
+                    if user_favorite_color == 'green' or user_favorite_color == 'white' or user_favorite_color == 'orange':
+                        print bcolors.OKGREEN + " "
+                        delay_print('Alex: Well that is pretty close to green')
+                        verbalizeString = 'Well that is pretty close to green'
+                        cmd = "say -v Alex " + verbalizeString
+                        os.system(cmd)
+                        print('')
+                        user_input = ''
+                        processed_input = []
+                        time.sleep(0.25)
+                    else:
+                        print bcolors.OKGREEN + " "
+                        delay_print('Alex: Oh..okay')
+                        verbalizeString = 'Oh..okay'
+                        cmd = "say -v Alex " + verbalizeString
+                        os.system(cmd)
+                        print('')
+                        user_input = ''
+                        processed_input = []
+                        time.sleep(0.25)
+
+            if placeHold == 4:
+                print bcolors.OKGREEN + " "
+                delay_print('Alex: How is ' + user_location + '?')
+                verbalizeString = 'How is ' + user_location + '?'
+                cmd = "say -v Alex " + verbalizeString
+                os.system(cmd)
+                print('')
+                user_input = ''
+                processed_input = []
+                time.sleep(0.25)
+
+                print bcolors.OKBLUE + " "
+                user_input = raw_input(user_name + ': ')
+                time.sleep(0.25)
+
+                user_input = str.lower(user_input)
+
+                stringOut = "".join(c for c in user_input if c not in ('!','.',':','?',';','"','"',','))
+    
+                processed_input = (stringOut.split())
+
+                if 'nice' in processed_input or 'good' in processed_input or 'great' in processed_input or 'cool' in processed_input:
+                    print bcolors.OKGREEN + " "
+                    delay_print('Alex: That\'s good!')
+                    verbalizeString = 'That\'s good!'
+                    cmd = "say -v Alex " + verbalizeString
+                    os.system(cmd)
+                    print('')
+                    user_input = ''
+                    processed_input = []
+                    time.sleep(0.25)
+                else: 
+                    print bcolors.OKGREEN + " "
+                    delay_print('Alex: Oh okay...Well that is alright I guess')
+                    verbalizeString = 'Oh okay...Well that is alright I guess'
+                    cmd = "say -v Alex " + verbalizeString
+                    os.system(cmd)
+                    print('')
+                    user_input = ''
+                    processed_input = []
+                    time.sleep(0.25)
+
+
+
+    verbalTopic = 'null'
+    prompt_for_input()
+
+
+
+
+
+
+#DEFAULT_START_CODE
+
+os.system('clear')
+print bcolors.OKGREEN + " "
+
+delay_print('Alex: Hello')
+verbalizeString = 'Hello'
+cmd = "say -v Alex " + verbalizeString
+os.system(cmd)
+print('')
+print('')
+time.sleep(0.25)
+
+delay_print('Alex: My name is Alex')
+verbalizeString = 'My name is Alex'
+cmd = "say -v Alex " + verbalizeString
+os.system(cmd)
+print('')
+print('')
+time.sleep(0.25)
+
+delay_print('Alex: What is your name?')
+verbalizeString = 'What is your name?'
+cmd = "say -v Alex " + verbalizeString
+os.system(cmd)
+print('')
+time.sleep(0.25)
+
+print bcolors.OKBLUE + " "
+user_name = raw_input(user_name + ': ')
+time.sleep(0.25)
+
+print bcolors.OKGREEN + " "
+delay_print('Alex: Hello ' + user_name)
+verbalizeString = 'Hello ' + user_name
+cmd = "say -v Alex " + verbalizeString
+os.system(cmd)
+print('')
+print('')
+time.sleep(0.25)
+
+delay_print('Alex: How old are you ' + user_name + '?')
+verbalizeString = 'How old are you ' + user_name + '?'
+cmd = "say -v Alex " + verbalizeString
+os.system(cmd)
+print('')
+time.sleep(0.25)
+
+print bcolors.OKBLUE + " "
+user_age = raw_input(user_name + ': ')
+
+if user_age < 1000000000000 and user_age > -100000000000:
+    user_age_number = user_age
+
+else: 
+    print bcolors.OKGREEN + " "
+    print ''
+    delay_print('Alex: You are a silly billy...that is not a number')
+    verbalizeString = 'You are a silly billy...that is not a number'
+    cmd = "say -v Alex " + verbalizeString
+    os.system(cmd)
+
+
+time.sleep(0.25)
+
+print bcolors.OKGREEN + " "
+delay_print('Alex: Okay ' + user_name)
+verbalizeString = 'Okay ' + user_name
+cmd = "say -v Alex " + verbalizeString
+os.system(cmd)
+print('')
+time.sleep(0.25)
+
+prompt_for_input()
+
+
